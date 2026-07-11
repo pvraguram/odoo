@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LogicLab - Digital Logic Design Platform</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=account_circle" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script type="module">import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true });
+    window.mermaid = mermaid;</script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .nav-item {
+      transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+
+    .nav-item:hover {
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .nav-item.active {
+      background: rgba(25, 118, 210, 0.12);
+      color: #1976d2;
+    }
+
+    .nav-item.active .material-icons {
+      color: #1976d2;
+    }
+
+    .sidebar {
+      transition: width 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+      box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+    }
+
+    .menu-btn {
+      transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+
+    .menu-btn:hover {
+      background: rgba(0, 0, 0, 0.04);
+      transform: scale(1.1);
+    }
+
+    .nav-text {
+      opacity: 0;
+      transition: opacity 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+
+    .content-area {
+      transition: margin-left 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+
+    .page-content {
+      display: block !important;
+    }
+
+    .page-content.hidden {
+      display: none !important;
+    }
+
+    /* Force visibility for debugging */
+    .page-content:not(.hidden) {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+
+    .card {
+      border-radius: 1.5rem !important; /* rounded-3xl */
+      transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05), 0 2px 8px rgba(0, 0, 0, 0.02) !important;
+      border: 1px solid #f1f5f9;
+      background-color: #ffffff;
+    }
+
+    .card:hover {
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08), 0 5px 15px rgba(0, 0, 0, 0.04) !important;
+      transform: translateY(-3px);
+    }
+
+    .feature-card {
+      border-radius: 1.5rem !important;
+      transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+      border: 1px solid #e2e8f0;
+      background-color: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 10px 20px rgba(0, 0, 0, 0.04);
+      border-color: #3b82f6;
+    }
+
+    .btn-material {
+      border-radius: 0.75rem !important; /* rounded-xl */
+      font-weight: 600;
+      letter-spacing: 0.025em;
+      transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+      box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3) !important;
+    }
+
+    .btn-material:hover {
+      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4) !important;
+      transform: translateY(-2px);
+    }
+
+    .btn-material:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 5px rgba(59, 130, 246, 0.3) !important;
+    }
+
+    .table-row {
+      transition: background-color 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+
+    .table-row:hover {
+      background-color: rgba(59, 130, 246, 0.04);
+    }
+
+    /* Line clamp utility for project descriptions */
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .timeline-item {
+      transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+
+    .timeline-item:hover {
+      transform: translateX(4px);
+    }
+
+    .glow {
+      filter: drop-shadow(0 0 15px #00eaff);
+      transition: transform 0.3s ease;
+    }
+
+    .glow:hover {
+      transform: scale(1.05);
+      filter: drop-shadow(0 0 25px #00ffff);
+    }
+
+    .fade-in {
+      animation: fadeIn 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .quick-action-btn {
+      transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+
+    .quick-action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .modal {
+      transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+
+    .modal.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal.hide {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .spinner {
+      border: 2px solid #f3f3f3;
+      border-top: 2px solid #3498db;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .truth-table {
+      font-family: 'Courier New', monospace;
+    }
+
+    .result-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .tool-btn {
+      background: transparent;
+      color: #6b7280;
+    }
+
+    .tool-btn.active {
+      background: #3b82f6;
+      color: white;
+    }
+
+    .tool-btn:hover:not(.active) {
+      background: #f3f4f6;
+      color: #374151;
+    }
+
+    .color-btn {
+      transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+
+    .color-btn.active {
+      border-color: #3b82f6 !important;
+      border-width: 3px;
+    }
+
+    .template-btn {
+      transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+
+    .template-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    #whiteboard {
+      display: block;
+      width: 100%;
+    }
+
+    /* Input & Form Styling */
+    input[type="text"], input[type="number"], select, textarea {
+      border-radius: 0.75rem !important; /* rounded-xl */
+      border: 2px solid #e2e8f0 !important;
+      transition: all 0.3s ease;
+      background-color: #f8fafc;
+    }
+    
+    input[type="text"]:focus, input[type="number"]:focus, select:focus, textarea:focus {
+      border-color: #3b82f6 !important;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1) !important;
+      background-color: #ffffff;
+      outline: none;
+    }
+
+    .tool-btn.scale-95 {
+      transform: scale(0.95);
+    }
+
+    /* 3D Enhanced Styles */
+    .hero-card {
+      background: linear-gradient(135deg, #1a2a6c, #2c5282, #3182ce);
+      border-radius: 20px;
+      padding: 3rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+      transform: perspective(1000px) rotateX(5deg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+      transform: rotate(45deg);
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-title {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      background: linear-gradient(to right, #ffffff, #e2e8f0);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 2rem;
+      max-width: 600px;
+    }
+
+    .feature-3d {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transform-style: preserve-3d;
+      transform: perspective(1000px) rotateX(0deg);
+    }
+
+    .feature-3d:hover {
+      transform: perspective(1000px) rotateX(-5deg) translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    }
+
+    .feature-3d .feature-icon {
+      height: 80px;
+      width: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 16px;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3);
+    }
+
+    .feature-3d:nth-child(2) .feature-icon {
+      background: linear-gradient(135deg, #10b981, #059669);
+      box-shadow: 0 8px 16px rgba(16, 185, 129, 0.3);
+    }
+
+    .feature-3d:nth-child(3) .feature-icon {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      box-shadow: 0 8px 16px rgba(245, 158, 11, 0.3);
+    }
+
+    .feature-3d:nth-child(4) .feature-icon {
+      background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+      box-shadow: 0 8px 16px rgba(139, 92, 246, 0.3);
+    }
+
+    .stats-card {
+      background: linear-gradient(145deg, #ffffff, #f3f4f6);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .stats-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+    }
+
+    .stats-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .timeline-graph {
+      background: linear-gradient(145deg, #ffffff, #f9fafb);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      padding: 2rem;
+      position: relative;
+    }
+
+    .timeline-graph::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.05), transparent 70%);
+      z-index: 0;
+    }
+
+    .chart-container {
+      position: relative;
+      z-index: 1;
+      height: 300px;
+    }
+
+    .project-card {
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      transform: translateZ(0);
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px) translateZ(0);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+    }
+
+    .project-card-header {
+      padding: 1rem;
+      border-bottom: 1px solid #f3f4f6;
+      background: linear-gradient(90deg, #f9fafb, #ffffff);
+    }
+
+    .project-card-body {
+      padding: 1.5rem;
+    }
+
+    .project-progress {
+      height: 6px;
+      width: 100%;
+      background: #e5e7eb;
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 1rem;
+    }
+
+    .project-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      border-radius: 3px;
+    }
+
+    .cta-button {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 0.75rem 2rem;
+      font-weight: 600;
+      font-size: 1rem;
+      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(59, 130, 246, 0.4);
+    }
+
+    .cta-button:active {
+      transform: translateY(1px);
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+  <!-- iOS-style Bottom Navbar -->
+  <nav
+    class="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 bg-white/80 backdrop-blur-md border border-gray-300 shadow-md rounded-full px-4 py-1 flex items-center space-x-8">
+    <!-- Home -->
+    <div class="nav-item flex flex-col items-center cursor-pointer text-gray-600 hover:text-blue-600 transition"
+      data-page="home">
+      <span class="material-icons text-[24px]">home</span>
+      <span class="text-xs text-center">Home</span>
+    </div>
+
+    <!-- Truth Table & K-Map -->
+    <div class="nav-item flex flex-col items-center cursor-pointer text-gray-600 hover:text-blue-600 transition"
+      data-page="kmap">
+      <span class="material-icons text-[24px]">grid_on</span>
+      <span class="text-xs text-center">K-Map</span>
+    </div>
+
+    <!-- Circuit Designer -->
+    <div class="nav-item flex flex-col items-center cursor-pointer text-gray-600 hover:text-blue-600 transition"
+      data-page="circuit">
+      <span class="material-icons text-[24px]">account_tree</span>
+      <span class="text-xs text-center">Circuit</span>
+    </div>
+
+    <!-- Boolean Simplifier -->
+    <div class="nav-item flex flex-col items-center cursor-pointer text-gray-600 hover:text-blue-600 transition"
+      data-page="simplifier">
+      <span class="material-icons text-[24px]">functions</span>
+      <span class="text-xs text-center">Simplify</span>
+    </div>
+
+    <!-- Sequence Detector -->
+    <div class="nav-item flex flex-col items-center cursor-pointer text-gray-600 hover:text-blue-600 transition"
+      data-page="sequence">
+      <span class="material-icons text-[24px]">timeline</span>
+      <span class="text-xs text-center">Sequence</span>
+    </div>
+
+    <!-- FlipFlops -->
+    <div class="nav-item flex flex-col items-center cursor-pointer text-gray-600 hover:scale-190 transition"
+      data-page="flipflops">
+      <span class="material-icons text-[24px]">memory</span>
+      <span class="text-xs text-center">FlipFlops</span>
+    </div>
+
+    <!-- Verilog Whiteboard -->
+    <div onclick="window.open('whiteboard.html', '_blank')"
+      class="nav-item flex flex-col items-center justify-center cursor-pointer text-gray-600 hover:text-blue-600 transition">
+      <span class="material-icons text-[24px]">draw</span>
+      <span class="text-xs text-center">Board</span>
+    </div>
+
+    <!-- Workspace -->
+    <div class="nav-item flex flex-col items-center cursor-pointer text-gray-600 hover:text-blue-600 transition"
+      data-page="workspace">
+      <span class="material-icons text-[24px]">folder</span>
+      <span class="text-xs text-center">Workspace</span>
+    </div>
+  </nav>
+
+  <!-- Main Content Area -->
+  <main id="mainContent" class="content-area min-h-screen bg-slate-50 pb-36 pt-4 px-4 sm:px-6 md:px-8">
+
+    <!-- Header -->
+    <header class="flex justify-between items-center px-4 py-3 bg-white shadow-md rounded-b-2xl mb-6">
+      <!-- Left side: Working Time -->
+      <div class="working-time text-sm px-4 py-1 rounded-full bg-green-100 text-green-800 shadow-sm font-medium mr-6">
+        ⏱ Working Time: <span id="workingTime">00:00:00</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="testapi"
+          class="flex items-center px-4 py-2 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-full shadow-sm border border-blue-200 transition-all text-sm font-medium h-10">
+          <span class="material-icons mr-2 text-blue-500">wifi</span>
+          <span>Test Backend</span>
+        </button>
+      </div>
+      <!-- Title -->
+      <h1 id="pageTitle" class="text-xl sm:text-2xl font-semibold text-gray-900 text-center flex-1">LogicLab - A Digital
+        Logic Design Platform
+      </h1>
+      <!-- Right side: User Icon -->
+      <div
+        class="w-8 h-8 bg-gradient-to-r from-yellow-500 to-red-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
+        <span class="material-symbols-outlined">account_circle</span>
+      </div>
+    </header>
+
+    <!-- Home Page Content -->
+    <div id="homePage" class="page-content p-6 space-y-8">
+      <!-- Hero Section -->
+      <div class="hero-card fade-in">
+        <div class="hero-content">
+          <h2 class="hero-title">Welcome to LogicLab</h2>
+          <p class="hero-subtitle">Your all-in-one digital logic design platform. Generate, analyze, and simulate
+            circuits with ease.</p>
+          <button class="cta-button" data-navigate="kmap">Get Started</button>
+        </div>
+      </div>
+
+      <!-- Features Section -->
+      <div class="space-y-6">
+        <h3 class="text-2xl font-semibold text-gray-900">Explore Features</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Truth Table & K-Map Generator -->
+          <div class="feature-3d bg-white rounded-xl p-6 flex flex-col items-center">
+            <div class="feature-icon">
+              <span class="material-icons text-white text-3xl">grid_on</span>
+            </div>
+            <h4 class="text-lg font-semibold text-gray-900 mb-2 text-center">Truth Table & K-Map</h4>
+            <p class="text-gray-600 text-sm mb-4 text-center">Generate truth tables and simplify Boolean expressions
+              using Karnaugh maps.</p>
+            <button
+              class="btn-material w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 text-sm font-medium"
+              data-navigate="kmap">
+              Get Started
+            </button>
+          </div>
+          <!-- Circuit Designer -->
+          <div class="feature-3d bg-white rounded-xl p-6 flex flex-col items-center">
+            <div class="feature-icon">
+              <span class="material-icons text-white text-3xl">account_tree</span>
+            </div>
+            <h4 class="text-lg font-semibold text-gray-900 mb-2 text-center">Circuit Designer</h4>
+            <p class="text-gray-600 text-sm mb-4 text-center">Generate logic circuit diagrams from Boolean expressions
+              with optimization.</p>
+            <button
+              class="btn-material w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 text-sm font-medium"
+              data-navigate="circuit">
+              Get Started
+            </button>
+          </div>
+          <!-- Logic Whiteboard -->
+          <div class="feature-3d bg-white rounded-xl p-6 flex flex-col items-center">
+            <div class="feature-icon">
+              <span class="material-icons text-white text-3xl">draw</span>
+            </div>
+            <h4 class="text-lg font-semibold text-gray-900 mb-2 text-center">Logic Whiteboard</h4>
+            <p class="text-gray-600 text-sm mb-4 text-center">Draw and design digital logic circuits with an intuitive
+              interface.</p>
+            <button
+              class="btn-material w-full bg-orange-600 text-white py-2 px-4 rounded-lg hover:bg-orange-700 text-sm font-medium"
+              onclick="window.open('whiteboard.html', '_blank')">
+              Get Started
+            </button>
+          </div>
+          <!-- Boolean Simplifier -->
+          <div class="feature-3d bg-white rounded-xl p-6 flex flex-col items-center">
+            <div class="feature-icon">
+              <span class="material-icons text-white text-3xl">functions</span>
+            </div>
+            <h4 class="text-lg font-semibold text-gray-900 mb-2 text-center">Boolean Simplifier</h4>
+            <p class="text-gray-600 text-sm mb-4 text-center">Simplify complex Boolean expressions using algebraic
+              methods.</p>
+            <button
+              class="btn-material w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 text-sm font-medium"
+              data-navigate="simplifier">
+              Get Started
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Section -->
+      <div class="space-y-6 mt-10">
+        <h3 class="text-2xl font-semibold text-gray-900">Your Dashboard</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Recent Activities -->
+          <div class="stats-card">
+            <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+              <span class="material-icons text-blue-500 mr-2">history</span>
+              Recent Activities
+            </h4>
+            <ul class="space-y-3 text-sm text-gray-700">
+              <li class="flex items-center">
+                <span class="material-icons text-green-500 mr-2 text-base">check_circle</span>
+                Generated a K-Map for <span class="ml-1 font-mono bg-gray-100 px-2 py-0.5 rounded">A & B | C</span>
+              </li>
+              <li class="flex items-center">
+                <span class="material-icons text-purple-500 mr-2 text-base">functions</span>
+                Simplified <span class="ml-1 font-mono bg-gray-100 px-2 py-0.5 rounded">A.B + C</span>
+              </li>
+              <li class="flex items-center">
+                <span class="material-icons text-orange-500 mr-2 text-base">draw</span>
+                Edited a circuit on the whiteboard
+              </li>
+            </ul>
+          </div>
+          <!-- Projects -->
+          <div class="stats-card">
+            <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+              <span class="material-icons text-green-500 mr-2">folder</span>
+              Projects
+            </h4>
+            <ul class="space-y-3 text-sm text-gray-700">
+              <li>
+                <span class="font-semibold">Half Adder</span>
+                <div class="project-progress">
+                  <div class="project-progress-bar" style="width: 75%"></div>
+                </div>
+                <span class="block text-xs text-gray-400">Last edited: 2 days ago</span>
+              </li>
+              <li>
+                <span class="font-semibold">Full Adder</span>
+                <div class="project-progress">
+                  <div class="project-progress-bar" style="width: 50%"></div>
+                </div>
+                <span class="block text-xs text-gray-400">Last edited: 5 days ago</span>
+              </li>
+              <li>
+                <span class="font-semibold">SR Latch</span>
+                <div class="project-progress">
+                  <div class="project-progress-bar" style="width: 90%"></div>
+                </div>
+                <span class="block text-xs text-gray-400">Last edited: 1 week ago</span>
+              </li>
+            </ul>
+          </div>
+          <!-- Quick Stats -->
+          <div class="stats-card">
+            <h4 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+              <span class="material-icons text-purple-500 mr-2">insights</span>
+              Quick Stats
+            </h4>
+            <div class="space-y-4">
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="text-sm font-medium text-gray-600">K-Maps Created</span>
+                  <span class="text-sm font-medium text-blue-600">24</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                  <div class="bg-blue-600 h-2 rounded-full" style="width: 80%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="text-sm font-medium text-gray-600">Circuits Designed</span>
+                  <span class="text-sm font-medium text-green-600">18</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                  <div class="bg-green-600 h-2 rounded-full" style="width: 60%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span class="text-sm font-medium text-gray-600">Expressions Simplified</span>
+                  <span class="text-sm font-medium text-purple-600">32</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                  <div class="bg-purple-600 h-2 rounded-full" style="width: 90%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- K-Map Page Content -->
+    <div id="kmapPage" class="page-content hidden p-6 space-y-6">
+      <div class="card bg-white rounded-xl p-6">
+        <h3 class="text-xl font-semibold text-gray-900 mb-6">Truth Table & K-Map Generator</h3>
+
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Boolean Expression</label>
+            <input type="text" id="kmapExpression"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="e.g., A & B | C, A.B + C, A AND B OR C">
+            <p class="text-xs text-gray-500 mt-1">Supported formats: Any Type : Either & (or) . etc...</p>
+          </div>
+
+          <div class="flex space-x-4">
+            <button id="generateTruthTable" type="button"
+              class="btn-material bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
+              Generate Truth Table
+            </button>
+            <button id="generateKMap" type="button"
+              class="btn-material bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700">
+              Generate K-Map
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results Area -->
+      <div id="truthTableResults" class="space-y-6"></div>
+      <div id="kmapResults" class="space-y-6"></div>
+    </div>
+
+    <!-- Circuit Page Content -->
+    <div id="circuitPage" class="page-content hidden p-6 space-y-6">
+      <div class="card bg-white rounded-xl p-6">
+        <h3 class="text-xl font-semibold text-gray-900 mb-6">Circuit Designer</h3>
+
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Boolean Expression</label>
+            <input type="text" id="circuitExpression"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="e.g., A & B | C, A.B + C, A AND B OR C">
+            <p class="text-xs text-gray-500 mt-1">Enter a Boolean expression to generate its logic circuit</p>
+          </div>
+
+          <button id="generateCircuit"
+            class="btn-material bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700">
+            Generate Circuit
+          </button>
+        </div>
+      </div>
+
+      <!-- Circuit Results -->
+      <div id="circuitResults" class="space-y-6"></div>
+    </div>
+    <!-- Boolean Simplifier Page -->
+    <div id="simplifierPage" class="page-content hidden p-6 space-y-6">
+      <div class="card bg-white rounded-xl p-6">
+        <h3 class="text-xl font-semibold text-gray-900 mb-6">Boolean Expression Simplifier</h3>
+
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Boolean Expression</label>
+            <input type="text" id="simplifierExpression"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="e.g., A & B | A & C | B & C">
+            <p class="text-xs text-gray-500 mt-1">Enter a Boolean expression to simplify it using K-Map method</p>
+          </div>
+
+          <button id="simplifyExpression"
+            class="btn-material bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700">
+            Simplify Expression
+          </button>
+        </div>
+      </div>
+
+      <!-- Simplifier Results -->
+      <div id="simplifierResults" class="space-y-6"></div>
+    </div>
+
+    <!-- Sequence Detector Page -->
+    <div id="sequencePage" class="page-content hidden p-6 space-y-6">
+      <div class="card bg-white rounded-xl p-6">
+        <h3 class="text-xl font-semibold text-gray-900 mb-6">Sequence Detector (Mealy & Moore)</h3>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- Sequence Detector Configuration -->
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Target Sequence</label>
+              <input type="text" id="targetSequence"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="e.g., 1010" maxlength="8">
+              <p class="text-xs text-gray-500 mt-1">Enter a binary sequence to detect (2-8 bits)</p>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Detector Type</label>
+              <select id="detectorType"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black-900 font-bold">
+                <option value="mealy">Mealy Machine</option>
+                <option value="moore">Moore Machine</option>
+              </select>
+              <p class="text-xs text-gray-500 mt-1">Choose between Mealy (output on transitions) or Moore (output in
+                states)</p>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Test Sequence (Optional)</label>
+              <input type="text" id="testSequence"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="e.g., 0011010010101">
+              <p class="text-xs text-gray-500 mt-1">Input sequence to test detection (leave empty for auto-generated
+                test)</p>
+            </div>
+
+            <div class="flex space-x-3">
+              <button id="analyzeSequence"
+                class="btn-material bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 flex-1">
+                Analyze Detector
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sequence Detector Results -->
+      <div id="sequenceResults" class="space-y-6"></div>
+    </div>
+
+    <!-- Flip-Flop Conversion Page -->
+    <section id="flipflopsPage" class="page-content hidden p-6 space-y-6">
+      <h2 class="text-2xl font-bold mb-4 text-gray-900">Flip-Flop Conversion & Analysis</h2>
+
+      <!-- Flip-Flop Selection and Actions -->
+      <div class="grid grid-cols-2 gap-6">
+
+        <!-- Flip-Flop Selection Boxes -->
+        <div class="space-y-4">
+          <div class="bg-white border rounded-lg p-4 shadow">
+            <label class="block font-semibold mb-2 text-red-900">Available Flip-Flop</label>
+            <select id="flipflopType" class="w-full border rounded p-2">
+              <option value="D" class="text-blue-900">D Flip-Flop</option>
+              <option value="T" class="text-blue-900">T Flip-Flop</option>
+              <option value="JK" class="text-blue-900">JK Flip-Flop</option>
+              <option value="SR" class="text-blue-900">SR Flip-Flop</option>
+            </select>
+          </div>
+
+          <div class="bg-white border rounded-lg p-4 shadow">
+            <label class="block font-semibold mb-2 text-green-900">Required Flip-Flop</label>
+            <select id="requiredFlipFlop" class="w-full border rounded p-2">
+              <option value="D" class="text-blue-900">D Flip-Flop</option>
+              <option value="T" class="text-blue-900">T Flip-Flop</option>
+              <option value="JK" class="text-blue-900">JK Flip-Flop</option>
+              <option value="SR" class="text-blue-900">SR Flip-Flop</option>
+            </select>
+          </div>
+
+          <!-- Convert Button -->
+          <button id="convertFlipFlop"
+            class="w-full px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 shadow">
+            Convert Flip-Flop
+          </button>
+
+          <!-- Save to Workspace -->
+          <p id="saveFlipFlopToWorkspace"
+            class="w-full px-6 py-2 bg-yellow-600 text-white rounded-lg hover:bg-orange-700 shadow flex items-center justify-center space-x-2">
+            <span>⚠️⚠️</span>
+            <span>Conversion from Available FF to Required FF Only</span>
+          </p>
+        </div>
+
+        <!-- Flip-Flop Information Cards -->
+        <div class="space-y-3">
+          <h4 class="text-lg font-semibold text-gray-900 mb-2">Flip-Flop Types</h4>
+          <div class="bg-blue-50 p-3 rounded-lg">
+            <h5 class="font-semibold text-blue-900">D Flip-Flop</h5>
+            <p class="text-sm text-blue-700">Single input, copies input to output on clock edge</p>
+          </div>
+          <div class="bg-green-50 p-3 rounded-lg">
+            <h5 class="font-semibold text-green-900">JK Flip-Flop</h5>
+            <p class="text-sm text-green-700">Two inputs (J, K), versatile with set/reset capabilities</p>
+          </div>
+          <div class="bg-purple-50 p-3 rounded-lg">
+            <h5 class="font-semibold text-purple-900">T Flip-Flop</h5>
+            <p class="text-sm text-purple-700">Toggle input, changes state when T=1</p>
+          </div>
+          <div class="bg-orange-50 p-3 rounded-lg">
+            <h5 class="font-semibold text-orange-900">SR Flip-Flop</h5>
+            <p class="text-sm text-orange-700">Set/Reset inputs, basic memory element</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Flip-Flop Results -->
+      <div id="flipflopsResults" class="space-y-6 mt-6"></div>
+    </section>
+
+    <!-- Workspace Page -->
+    <div id="workspacePage" class="page-content hidden p-6 space-y-6">
+      <div class="card bg-white rounded-xl p-6">
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="text-xl font-semibold text-gray-900">Personal Workspace</h3>
+          <button id="createProjectBtn"
+            class="btn-material bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2">
+            <span class="material-icons text-sm">add</span>
+            <span>New Project</span>
+          </button>
+        </div>
+        <!-- Project Statistics -->
+        <div class="mb-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="stats-card">
+            <div class="flex items-center">
+              <span class="material-icons text-blue-600 mr-2">folder</span>
+              <div>
+                <p class="text-sm text-blue-600">Total Projects</p>
+                <p class="text-xl font-semibold text-blue-900" id="totalProjects">0</p>
+              </div>
+            </div>
+          </div>
+          <div class="stats-card">
+            <div class="flex items-center">
+              <span class="material-icons text-green-600 mr-2">data_usage</span>
+              <div>
+                <p class="text-sm text-green-600">With Data</p>
+                <p class="text-xl font-semibold text-green-900" id="projectsWithData">0</p>
+              </div>
+            </div>
+          </div>
+          <div class="stats-card">
+            <div class="flex items-center">
+              <span class="material-icons text-purple-600 mr-2">schedule</span>
+              <div>
+                <p class="text-sm text-purple-600">This Week</p>
+                <p class="text-xl font-semibold text-purple-900" id="recentProjects">0</p>
+              </div>
+            </div>
+          </div>
+          <div class="stats-card">
+            <div class="flex items-center">
+              <span class="material-icons text-orange-600 mr-2">storage</span>
+              <div>
+                <p class="text-sm text-orange-600">Storage Used</p>
+                <p class="text-xl font-semibold text-orange-900" id="storageUsed">0 KB</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project Timeline Graph -->
+        <div class="timeline-graph mb-6">
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">Project Activity Timeline</h3>
+          <div class="chart-container">
+            <canvas id="projectTimelineChart"></canvas>
+          </div>
+          <div class="mt-4 flex justify-center space-x-4">
+            <button id="timelineWeek"
+              class="px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-sm font-medium">Week</button>
+            <button id="timelineMonth"
+              class="px-3 py-1 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium">Month</button>
+            <button id="timelineYear"
+              class="px-3 py-1 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium">Year</button>
+          </div>
+        </div>
+
+        <!-- Search and Filter Bar -->
+        <div class="mb-6">
+          <div class="flex flex-col md:flex-row gap-4 mb-4">
+            <div class="flex-1">
+              <div class="relative">
+                <span
+                  class="material-icons absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">search</span>
+                <input type="text" id="projectSearch" placeholder="Search projects..."
+                  class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+              </div>
+            </div>
+            <div class="flex items-center space-x-2">
+              <span class="text-sm text-gray-600">Sort by:</span>
+              <select id="projectSort"
+                class="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="updated">Last Updated</option>
+                <option value="created">Date Created</option>
+                <option value="name">Name</option>
+                <option value="category">Category</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Project Categories -->
+          <div class="flex flex-wrap gap-2">
+            <button
+              class="category-filter px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-700 border border-blue-200"
+              data-category="all">All Projects</button>
+            <button
+              class="category-filter px-3 py-1 rounded-full text-sm font-medium text-gray-600 border border-gray-200 hover:bg-gray-50"
+              data-category="truth-table">Truth Tables</button>
+            <button
+              class="category-filter px-3 py-1 rounded-full text-sm font-medium text-gray-600 border border-gray-200 hover:bg-gray-50"
+              data-category="kmap">K-Maps</button>
+            <button
+              class="category-filter px-3 py-1 rounded-full text-sm font-medium text-gray-600 border border-gray-200 hover:bg-gray-50"
+              data-category="circuit">Circuits</button>
+            <button
+              class="category-filter px-3 py-1 rounded-full text-sm font-medium text-gray-600 border border-gray-200 hover:bg-gray-50"
+              data-category="simplification">Boolean Simplification</button>
+            <button
+              class="category-filter px-3 py-1 rounded-full text-sm font-medium text-gray-600 border border-gray-200 hover:bg-gray-50"
+              data-category="whiteboard">Whiteboard</button>
+            <button
+              class="category-filter px-3 py-1 rounded-full text-sm font-medium text-gray-600 border border-gray-200 hover:bg-gray-50"
+              data-category="sequence-detector">Sequence Detectors</button>
+            <button
+              class="category-filter px-3 py-1 rounded-full text-sm font-medium text-gray-600 border border-gray-200 hover:bg-gray-50"
+              data-category="flipflops">FlipFlops</button>
+          </div>
+        </div>
+
+        <!-- Projects Grid -->
+        <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Projects will be dynamically loaded here -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="text-center py-12">
+          <span class="material-icons text-6xl text-gray-300 mb-4">folder_open</span>
+          <h4 class="text-lg font-medium text-gray-900 mb-2">No projects yet</h4>
+          <p class="text-gray-600 mb-4">Create your first project to get started</p>
+          <button id="emptyStateCreateBtn"
+            class="btn-material bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
+            Create Project
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Create Project Modal -->
+    <div id="createProjectModal"
+      class="modal hide fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-white rounded-lg p-6 w-full max-w-md">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-semibold text-gray-900">Create New Project</h3>
+          <button id="closeCreateModal" class="text-gray-400 hover:text-gray-600">
+            <span class="material-icons">close</span>
+          </button>
+        </div>
+        <form id="createProjectForm" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Project Name</label>
+            <input type="text" id="projectName"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+            <textarea id="projectDescription"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              rows="3"></textarea>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
+            <select id="projectCategory"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="truth-table">Truth Table</option>
+              <option value="kmap">K-Map</option>
+              <option value="circuit">Circuit Design</option>
+              <option value="simplification">Boolean Simplification</option>
+              <option value="whiteboard">Whiteboard</option>
+            </select>
+          </div>
+          <div class="flex justify-end space-x-3 pt-4">
+            <button type="button" id="cancelCreateProject"
+              class="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50">Cancel</button>
+            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Create
+              Project</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Project Details Modal -->
+    <div id="projectDetailsModal"
+      class="modal hide fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-white rounded-lg p-6 w-full max-w-2xl max-h-[80vh] overflow-y-auto">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-semibold text-gray-900" id="projectDetailsTitle">Project Details</h3>
+          <button id="closeDetailsModal" class="text-gray-400 hover:text-gray-600">
+            <span class="material-icons">close</span>
+          </button>
+        </div>
+        <div id="projectDetailsContent" class="space-y-4">
+          <!-- Project details will be loaded here -->
+        </div>
+        <div class="flex justify-end space-x-3 pt-4">
+          <button id="deleteProjectBtn"
+            class="px-4 py-2 text-red-600 border border-red-300 rounded-lg hover:bg-red-50">Delete Project</button>
+          <button id="closeDetailsBtn"
+            class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700">Close</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Loading Modal -->
+  <div id="loadingModal" class="modal hide fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg p-6 flex items-center space-x-3">
+      <div class="spinner"></div>
+      <span class="text-gray-700">Processing...</span>
+    </div>
+  </div>
+  <script src="improved.js"></script>
+</body>
+</html>

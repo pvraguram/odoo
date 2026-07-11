@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LogicLab Integration Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; border-radius: 5px; }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        .info { background-color: #d1ecf1; border-color: #bee5eb; }
+        button { padding: 10px 15px; margin: 5px; cursor: pointer; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 3px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>LogicLab Frontend-Backend Integration Test</h1>
+    
+    <div class="test-section info">
+        <h3>Test Status</h3>
+        <div id="status">Initializing...</div>
+    </div>
+
+    <div class="test-section">
+        <h3>API Health Check</h3>
+        <button onclick="testHealth()">Test Health Endpoint</button>
+        <div id="health-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>Boolean Simplification Test</h3>
+        <button onclick="testSimplify()">Test Simplify Endpoint</button>
+        <div id="simplify-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>Truth Table Test</h3>
+        <button onclick="testTruthTable()">Test Truth Table Endpoint</button>
+        <div id="truth-table-result"></div>
+    </div>
+
+    <script>
+        const API_BASE_URL = '';
+        
+        function updateStatus(message, type = 'info') {
+            const statusDiv = document.getElementById('status');
+            statusDiv.innerHTML = `<span class="${type}">${message}</span>`;
+        }
+
+        async function testHealth() {
+            const resultDiv = document.getElementById('health-result');
+            resultDiv.innerHTML = 'Testing...';
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/health`);
+                if (response.ok) {
+                    const data = await response.json();
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            <h4>✅ Health Check Successful</h4>
+                            <pre>${JSON.stringify(data, null, 2)}</pre>
+                        </div>
+                    `;
+                    updateStatus('Backend is running and healthy', 'success');
+                } else {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <h4>❌ Health Check Failed</h4>
+                        <p>Error: ${error.message}</p>
+                    </div>
+                `;
+                updateStatus('Backend connection failed', 'error');
+            }
+        }
+
+        async function testSimplify() {
+            const resultDiv = document.getElementById('simplify-result');
+            resultDiv.innerHTML = 'Testing...';
+            
+            try {
+                const formData = new FormData();
+                formData.append('expression', 'A & B | A & ~B');
+                
+                const response = await fetch(`${API_BASE_URL}/simplify`, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            <h4>✅ Simplify Test Successful</h4>
+                            <pre>${JSON.stringify(data, null, 2)}</pre>
+                        </div>
+                    `;
+                } else {
+                    const errorData = await response.json();
+                    throw new Error(errorData.detail || `HTTP ${response.status}`);
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <h4>❌ Simplify Test Failed</h4>
+                        <p>Error: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function testTruthTable() {
+            const resultDiv = document.getElementById('truth-table-result');
+            resultDiv.innerHTML = 'Testing...';
+            
+            try {
+                const formData = new FormData();
+                formData.append('expression', 'A & B | A & ~B');
+                
+                const response = await fetch(`${API_BASE_URL}/truth-table`, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            <h4>✅ Truth Table Test Successful</h4>
+                            <pre>${JSON.stringify(data, null, 2)}</pre>
+                        </div>
+                    `;
+                } else {
+                    const errorData = await response.json();
+                    throw new Error(errorData.detail || `HTTP ${response.status}`);
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <h4>❌ Truth Table Test Failed</h4>
+                        <p>Error: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Auto-test on load
+        window.addEventListener('load', () => {
+            updateStatus('Page loaded, ready for testing');
+            // Auto-run health check
+            setTimeout(testHealth, 1000);
+        });
+    </script>
+</body>
+</html> 

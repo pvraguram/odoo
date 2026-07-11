@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Logic Circuit Whiteboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to right, #f8fafc, #eef2ff);
+    }
+
+    .tool-btn {
+      transition: transform 0.15s ease;
+    }
+
+    .tool-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .active {
+      background-color: #dbeafe;
+    }
+
+    .gate-icon {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+    }
+
+    canvas {
+      cursor: crosshair;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-white shadow p-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-gray-800">Logic Circuit Whiteboard</h1>
+    <div class="flex space-x-2">
+      <button id="aiGenerateVerilog" class="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">
+        AI Generate Verilog
+      </button>
+      <button id="downloadVerilog" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+        Download .v
+      </button>
+    </div>
+  </header>
+
+  <main class="p-6 space-y-6 flex-1">
+
+    <!-- Toolbar -->
+    <div class="flex flex-wrap items-center space-x-2 bg-white shadow rounded-xl p-4">
+
+      <!-- Drawing Tools -->
+      <button id="penTool" class="tool-btn px-3 py-2 bg-gray-100 rounded" title="Pen">
+        <span class="material-icons">edit</span>
+      </button>
+      <button id="eraserTool" class="tool-btn px-3 py-2 bg-gray-100 rounded" title="Eraser">
+        <span class="material-icons text-red-500">auto_fix_high</span>
+      </button>
+      <button id="highlighterTool" class="tool-btn px-3 py-2 bg-gray-100 rounded" title="Highlighter">
+        <span class="material-icons text-yellow-500">brush</span>
+      </button>
+      <button id="lineTool" class="tool-btn px-3 py-2 bg-gray-100 rounded" title="Wire">
+        <span class="material-icons">show_chart</span>
+      </button>
+      <button id="moveTool" class="tool-btn px-3 py-2 bg-gray-100 rounded" title="Move/Select">
+        <span class="material-icons text-green-600">open_with</span>
+      </button>
+      <button id="deleteTool" class="tool-btn px-3 py-2 bg-gray-100 rounded" title="Delete">
+        <span class="material-icons text-red-600">delete</span>
+      </button>
+      <button onclick="undo()" class="tool-btn px-3 py-2 bg-gray-100 rounded" title="Undo (Ctrl+Z)">
+        <span class="material-icons text-indigo-600">undo</span>
+      </button>
+      <button onclick="redo()" class="tool-btn px-3 py-2 bg-gray-100 rounded" title="Redo (Ctrl+Y)">
+        <span class="material-icons text-indigo-600">redo</span>
+      </button>
+
+
+
+      <!-- Brush Size -->
+      <label class="ml-4 text-gray-600">Size:</label>
+      <input type="range" id="brushSize" min="1" max="30" value="5" class="w-24">
+      <span id="brushSizeValue" class="text-sm text-gray-600 w-6">5</span>
+
+      <!-- Color Picker -->
+      <input type="color" id="colorPicker" class="ml-4 w-10 h-10 rounded-full border-2 border-gray-300 cursor-pointer">
+
+      <!-- Logic Gates Toolbar -->
+      <div class="flex space-x-2 ml-6">
+        <button id="andGate" class="tool-btn bg-gray-100 rounded p-1" title="AND Gate">
+          <img src="gates/and.png" class="gate-icon">
+        </button>
+        <button id="orGate" class="tool-btn bg-gray-100 rounded p-1" title="OR Gate">
+          <img src="gates/or.png" class="gate-icon">
+        </button>
+        <button id="notGate" class="tool-btn bg-gray-100 rounded p-1" title="NOT Gate">
+          <img src="gates/not.png" class="gate-icon">
+        </button>
+        <button id="nandGate" class="tool-btn bg-gray-100 rounded p-1" title="NAND Gate">
+          <img src="gates/nand.png" class="gate-icon">
+        </button>
+        <button id="norGate" class="tool-btn bg-gray-100 rounded p-1" title="NOR Gate">
+          <img src="gates/nor.png" class="gate-icon">
+        </button>
+        <button id="xorGate" class="tool-btn bg-gray-100 rounded p-1" title="XOR Gate">
+          <img src="gates/xor.png" class="gate-icon">
+        </button>
+        <button id="xnorGate" class="tool-btn bg-gray-100 rounded p-1" title="XNOR Gate">
+          <img src="gates/xnor.png" class="gate-icon">
+        </button>
+      </div>
+
+      <!-- Clear Board -->
+      <button id="clearBoard" class="ml-auto px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+        Clear
+      </button>
+    </div>
+
+    <!-- Canvas Area -->
+    <div class="relative bg-white rounded-lg overflow-hidden border border-gray-300 shadow-lg" style="height: 600px;">
+      <canvas id="whiteboard" width="1400" height="600"></canvas>
+    </div>
+
+    <!-- Verilog Output -->
+    <pre id="verilogOutput" class="bg-gray-100 p-2 mt-3 border rounded w-full h-48 overflow-auto"></pre>
+  </main>
+
+  <!-- FabricJS + Whiteboard -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js"></script>
+  <script src="whiteboard.js"></script>
+</body>
+
+</html>

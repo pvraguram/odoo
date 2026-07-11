@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java OOP Programming </title>
+    <style>
+        @media print {
+            body { margin: 0; }
+            .page-break { page-break-before: always; }
+            @page { margin: 1.5cm; }
+        }
+        
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 28px;
+            margin: 0;
+            font-weight: bold;
+        }
+        
+        .section-header {
+            background: #34495e;
+            color: white;
+            padding: 12px 20px;
+            margin: 30px 0 20px 0;
+            border-left: 5px solid #3498db;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .program-title {
+            color: #2c3e50;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            padding-left: 10px;
+            border-left: 3px solid #3498db;
+        }
+        
+        pre {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.4;
+            margin: 10px 0 20px 0;
+        }
+        
+        code {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+        
+        .divider {
+            border-top: 2px solid #bdc3c7;
+            margin: 30px 0;
+        }
+        
+        .faq-section {
+            margin-top: 40px;
+        }
+        
+        .faq-question {
+            color: #2c3e50;
+            font-weight: bold;
+            font-size: 15px;
+            margin: 20px 0 10px 0;
+        }
+        
+        .faq-answer {
+            margin-left: 20px;
+            text-align: justify;
+            line-height: 1.7;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #2c3e50;
+            font-style: italic;
+            color: #7f8c8d;
+        }
+        
+        .print-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        
+        .print-button:hover {
+            background: #2980b9;
+        }
+        
+        @media print {
+            .print-button { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <button class="print-button" onclick="window.print()">Download as PDF</button>
+    
+    <div class="header">
+        <h1>Java OOP Programming</h1>
+    </div>
+
+    <div class="section-header">BASIC PROGRAMS</div>
+
+    <div class="program-title">1. Hello World — Print a message to the console</div>
+    <pre><code>class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello World");
+    }
+}</code></pre>
+
+    <div class="program-title">2. Sum of Two Numbers</div>
+    <pre><code>class SumTwo {
+    public static void main(String[] args) {
+        int num1 = 5, num2 = 3;
+        System.out.println("Sum = " + (num1 + num2));
+    }
+}</code></pre>
+
+    <div class="program-title">3. Even or Odd</div>
+    <pre><code>class EvenOdd {
+    public static void main(String[] args) {
+        int number = 7;
+        if(number % 2 == 0) 
+            System.out.println("Even"); 
+        else 
+            System.out.println("Odd");
+    }
+}</code></pre>
+
+    <div class="program-title">4. Largest of Three Numbers</div>
+    <pre><code>class LargestOfThree {
+    public static void main(String[] args) {
+        int x = 10, y = 25, z = 15;
+        System.out.println("Largest = " + (x > y ? (x > z ? x : z) : (y > z ? y : z)));
+    }
+}</code></pre>
+
+    <div class="program-title">5. Simple For Loop (1 to N)</div>
+    <pre><code>class SimpleLoop {
+    public static void main(String[] args) {
+        for(int i = 1; i <= 5; i++) 
+            System.out.print(i + " ");
+    }
+}</code></pre>
+
+    <div class="program-title">6. Factorial of a Number</div>
+    <pre><code>class Factorial {
+    public static void main(String[] args) {
+        int num = 5, factorial = 1;
+        for(int i = 1; i <= num; i++) 
+            factorial *= i;
+        System.out.println("Factorial = " + factorial);
+    }
+}</code></pre>
+
+    <div class="program-title">7. Check Prime Number</div>
+    <pre><code>class PrimeCheck {
+    public static void main(String[] args) {
+        int num = 13, isPrime = 0;
+        for(int i = 2; i <= num/2; i++) 
+            if(num % i == 0) {
+                isPrime = 1;
+                break;
+            }
+        System.out.println(isPrime == 0 ? "Prime" : "Not Prime");
+    }
+}</code></pre>
+
+    <div class="program-title">8. Fibonacci Series (Iterative)</div>
+    <pre><code>class Fibonacci {
+    public static void main(String[] args) {
+        int first = 0, second = 1, next;
+        for(int i = 0; i < 10; i++) {
+            System.out.print(first + " ");
+            next = first + second;
+            first = second;
+            second = next;
+        }
+    }
+}</code></pre>
+
+    <div class="program-title">9. Palindrome Checker (String)</div>
+    <pre><code>class PalindromeString {
+    public static void main(String[] args) {
+        String str = "madam", reversed = "";
+        for(int i = str.length()-1; i >= 0; i--)
+            reversed += str.charAt(i);
+        System.out.println(str.equals(reversed) ? "Palindrome" : "Not Palindrome");
+    }
+}</code></pre>
+
+    <div class="program-title">10. Reverse a String</div>
+    <pre><code>class ReverseString {
+    public static void main(String[] args) {
+        String str = "hello", reversed = "";
+        for(int i = str.length()-1; i >= 0; i--)
+            reversed += str.charAt(i);
+        System.out.println(reversed);
+    }
+}</code></pre>
+
+    <div class="program-title">11. Calculate Area of Circle & Rectangle</div>
+    <pre><code>class AreaCalc {
+    public static void main(String[] args) {
+        double radius = 5;
+        int length = 4, breadth = 6;
+        System.out.println("Circle = " + (3.14 * radius * radius));
+        System.out.println("Rectangle = " + (length * breadth));
+    }
+}</code></pre>
+
+    <div class="program-title">12. Switch Case Example</div>
+    <pre><code>class SwitchExample {
+    public static void main(String[] args) {
+        int choice = 2;
+        switch(choice) {
+            case 1: System.out.println("One"); break;
+            case 2: System.out.println("Two"); break;
+            default: System.out.println("Other");
+        }
+    }
+}</code></pre>
+
+    <div class="program-title">13. Calculate Average of Numbers</div>
+    <pre><code>class Average {
+    public static void main(String[] args) {
+        int numbers[] = {10, 20, 30, 40, 50};
+        int sum = 0;
+        for(int num : numbers) 
+            sum += num;
+        System.out.println("Average = " + (sum / numbers.length));
+    }
+}</code></pre>
+
+    <div class="program-title">14. Simple Calculator (+, -, ×, ÷)</div>
+    <pre><code>class Calculator {
+    public static void main(String[] args) {
+        int num1 = 8, num2 = 2;
+        System.out.println("Add = " + (num1 + num2));
+        System.out.println("Sub = " + (num1 - num2));
+        System.out.println("Mul = " + (num1 * num2));
+        System.out.println("Div = " + (num1 / num2));
+    }
+}</code></pre>
+
+    <div class="program-title">15. Count Vowels and Consonants</div>
+    <pre><code>class CountVowelsConsonants {
+    public static void main(String[] args) {
+        String str = "HelloJava";
+        int vowels = 0, consonants = 0;
+        for(char ch : str.toLowerCase().toCharArray()) {
+            if("aeiou".indexOf(ch) >= 0)
+                vowels++;
+            else if(Character.isLetter(ch))
+                consonants++;
+        }
+        System.out.println("Vowels = " + vowels + " Consonants = " + consonants);
+    }
+}</code></pre>
+
+    <div class="program-title">16. Find GCD and LCM</div>
+    <pre><code>class GcdLcm {
+    public static void main(String[] args) {
+        int num1 = 12, num2 = 18, gcd = 1;
+        for(int i = 1; i <= num1 && i <= num2; i++)
+            if(num1 % i == 0 && num2 % i == 0)
+                gcd = i;
+        int lcm = (num1 * num2) / gcd;
+        System.out.println("GCD = " + gcd + " LCM = " + lcm);
+    }
+}</code></pre>
+
+    <div class="program-title">17. Arrays Basics</div>
+    <pre><code>class ArrayBasics {
+    public static void main(String[] args) {
+        int arr[] = {1, 2, 3, 4, 5};
+        for(int element : arr)
+            System.out.print(element + " ");
+    }
+}</code></pre>
+
+    <div class="program-title">18. Find Max and Min in Array</div>
+    <pre><code>class MaxMinArray {
+    public static void main(String[] args) {
+        int arr[] = {3, 8, 2, 9, 5};
+        int max = arr[0], min = arr[0];
+        for(int element : arr) {
+            if(element > max) max = element;
+            if(element < min) min = element;
+        }
+        System.out.println("Max = " + max + " Min = " + min);
+    }
+}</code></pre>
+
+    <div class="program-title">19. Linear Search in Array</div>
+    <pre><code>class LinearSearch {
+    public static void main(String[] args) {
+        int arr[] = {1, 3, 5, 7, 9};
+        int target = 5, found = 0;
+        for(int i = 0; i < arr.length; i++)
+            if(arr[i] == target) {
+                found = 1;
+                break;
+            }
+        System.out.println(found == 1 ? "Found" : "Not Found");
+    }
+}</code></pre>
+
+    <div class="divider"></div>
+    <div class="section-header">ADVANCED PROGRAMS</div>
+
+    <div class="program-title">1. Swap Two Numbers Without Temporary Variable</div>
+    <pre><code>class SwapNumbers {
+    public static void main(String[] args) {
+        int x = 5, y = 7;
+        x = x + y;
+        y = x - y;
+        x = x - y;
+        System.out.println("x = " + x + " y = " + y);
+    }
+}</code></pre>
+
+    <div class="program-title">2. Check if a Number is Armstrong Number</div>
+    <pre><code>class ArmstrongNumber {
+    public static void main(String[] args) {
+        int num = 153, temp = num, sum = 0;
+        while(temp > 0) {
+            int digit = temp % 10;
+            sum += digit * digit * digit;
+            temp /= 10;
+        }
+        System.out.println(sum == num ? "Armstrong" : "Not Armstrong");
+    }
+}</code></pre>
+
+    <div class="program-title">3. Print Pattern Programs (Pyramid)</div>
+    <pre><code>class PyramidPattern {
+    public static void main(String[] args) {
+        int rows = 5;
+        for(int i = 1; i <= rows; i++) {
+            for(int j = i; j < rows; j++) 
+                System.out.print(" ");
+            for(int k = 1; k <= 2*i-1; k++) 
+                System.out.print("*");
+            System.out.println();
+        }
+    }
+}</code></pre>
+
+    <div class="program-title">4. Find Duplicate Characters in a String</div>
+    <pre><code>import java.util.*;
+class DuplicateChars {
+    public static void main(String[] args) {
+        String str = "programming";
+        Set&lt;Character&gt; set = new HashSet&lt;&gt;();
+        for(char ch : str.toCharArray()) {
+            if(!set.add(ch))
+                System.out.print(ch + " ");
+        }
+    }
+}</code></pre>
+
+    <div class="program-title">5. Check Anagram Strings</div>
+    <pre><code>import java.util.*;
+class AnagramCheck {
+    public static void main(String[] args) {
+        String str1 = "listen", str2 = "silent";
+        char[] arr1 = str1.toCharArray(), arr2 = str2.toCharArray();
+        Arrays.sort(arr1);
+        Arrays.sort(arr2);
+        System.out.println(Arrays.equals(arr1, arr2) ? "Anagram" : "Not Anagram");
+    }
+}</code></pre>
+
+    <div class="program-title">6. Find Missing Number in an Array</div>
+    <pre><code>class MissingNumber {
+    public static void main(String[] args) {
+        int arr[] = {1, 2, 4, 5};
+        int n = 5, sum = 0;
+        for(int element : arr) 
+            sum += element;
+        int expectedSum = n * (n + 1) / 2;
+        System.out.println("Missing = " + (expectedSum - sum));
+    }
+}</code></pre>
+
+    <div class="program-title">7. Count Number of Words in a String</div>
+    <pre><code>class CountWords {
+    public static void main(String[] args) {
+        String str = "Java is fun to learn";
+        String[] words = str.trim().split("\\s+");
+        System.out.println("Words = " + words.length);
+    }
+}</code></pre>
+
+    <div class="program-title">8. Reverse Words in a Sentence</div>
+    <pre><code>class ReverseWords {
+    public static void main(String[] args) {
+        String str = "Java is fun", result = "";
+        String[] words = str.split(" ");
+        for(int i = words.length-1; i >= 0; i--)
+            result += words[i] + " ";
+        System.out.println(result.trim());
+    }
+}</code></pre>
+
+    <div class="program-title">9. Sum of Digits of a Number</div>
+    <pre><code>class SumDigits {
+    public static void main(String[] args) {
+        int num = 1234, sum = 0;
+        while(num > 0) {
+            sum += num % 10;
+            num /= 10;
+        }
+        System.out.println("Sum = " + sum);
+    }
+}</code></pre>
+
+    <div class="program-title">10. Check Palindrome Number Without String Methods</div>
+    <pre><code>class PalindromeNumber {
+    public static void main(String[] args) {
+        int num = 121, temp = num, reversed = 0;
+        while(temp > 0) {
+            reversed = reversed * 10 + temp % 10;
+            temp /= 10;
+        }
+        System.out.println(reversed == num ? "Palindrome" : "Not Palindrome");
+    }
+}</code></pre>
+
+    <div class="program-title">11. Find Second Largest Number in an Array</div>
+    <pre><code>class SecondLargest {
+    public static void main(String[] args) {
+        int arr[] = {10, 20, 4, 45, 99};
+        int first = 0, second = 0;
+        for(int element : arr) {
+            if(element > first) {
+                second = first;
+                first = element;
+            } else if(element > second && element != first)
+                second = element;
+        }
+        System.out.println("Second Largest = " + second);
+    }
+}</code></pre>
+
+    <div class="program-title">12. Print Fibonacci Series Using Recursion</div>
+    <pre><code>class FibonacciRec {
+    static int fib(int n) {
+        if(n <= 1) return n;
+        return fib(n-1) + fib(n-2);
+    }
+    public static void main(String[] args) {
+        int count = 10;
+        for(int i = 0; i < count; i++)
+            System.out.print(fib(i) + " ");
+    }
+}</code></pre>
+
+    <div class="program-title">13. Check if a String Contains Only Digits</div>
+    <pre><code>class OnlyDigits {
+    public static void main(String[] args) {
+        String str = "12345";
+        System.out.println(str.matches("\\d+") ? "Only Digits" : "Not Digits");
+    }
+}</code></pre>
+
+    <div class="program-title">14. Find Frequency of Characters in a String</div>
+    <pre><code>import java.util.*;
+class CharFrequency {
+    public static void main(String[] args) {
+        String str = "banana";
+        Map&lt;Character, Integer&gt; map = new HashMap&lt;&gt;();
+        for(char ch : str.toCharArray())
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
+        System.out.println(map);
+    }
+}</code></pre>
+
+    <div class="program-title">15. Find Intersection of Two Arrays</div>
+    <pre><code>class IntersectionArrays {
+    public static void main(String[] args) {
+        int arr1[] = {1, 2, 3, 4, 5}, arr2[] = {3, 4, 5, 6, 7};
+        for(int elem1 : arr1)
+            for(int elem2 : arr2)
+                if(elem1 == elem2)
+                    System.out.print(elem1 + " ");
+    }
+}</code></pre>
+
+    <div class="program-title">16. Remove Duplicates from an Array</div>
+    <pre><code>import java.util.*;
+class RemoveDuplicates {
+    public static void main(String[] args) {
+        int arr[] = {1, 2, 2, 3, 4, 4, 5};
+        Set&lt;Integer&gt; uniqueSet = new LinkedHashSet&lt;&gt;();
+        for(int element : arr) 
+            uniqueSet.add(element);
+        System.out.println(uniqueSet);
+    }
+}</code></pre>
+
+    <div class="program-title">17. Simple Calculator Using Switch Case</div>
+    <pre><code>class SwitchCalculator {
+    public static void main(String[] args) {
+        int num1 = 8, num2 = 2, choice = 3;
+        switch(choice) {
+            case 1: System.out.println("Add = " + (num1 + num2)); break;
+            case 2: System.out.println("Sub = " + (num1 - num2)); break;
+            case 3: System.out.println("Mul = " + (num1 * num2)); break;
+            case 4: System.out.println("Div = " + (num1 / num2)); break;
+            default: System.out.println("Invalid");
+        }
+    }
+}</code></pre>
+
+    <div class="program-title">18. Find Factorial Using Recursion</div>
+    <pre><code>class FactorialRec {
+    static int fact(int n) {
+        if(n == 0) return 1;
+        return n * fact(n-1);
+    }
+    public static void main(String[] args) {
+        System.out.println("Factorial = " + fact(5));
+    }
+}</code></pre>
+
+    <div class="program-title">19. Print All Prime Numbers Between Two Intervals</div>
+    <pre><code>class PrimeInterval {
+    static boolean isPrime(int num) {
+        if(num < 2) return false;
+        for(int i = 2; i <= Math.sqrt(num); i++)
+            if(num % i == 0) return false;
+        return true;
+    }
+    public static void main(String[] args) {
+        int start = 10, end = 50;
+        for(int i = start; i <= end; i++)
+            if(isPrime(i))
+                System.out.print(i + " ");
+    }
+}</code></pre>
+
+    <div class="program-title">20. Convert Decimal to Binary Without Built-in Methods</div>
+    <pre><code>class DecimalToBinary {
+    public static void main(String[] args) {
+        int decimal = 25;
+        String binary = "";
+        while(decimal > 0) {
+            binary = (decimal % 2) + binary;
+            decimal /= 2;
+        }
+        System.out.println("Binary = " + binary);
+    }
+}</code></pre>
+
+    <div class="divider"></div>
+    <div class="section-header">BOXING, UNBOXING, TYPE CASTING, AND WRAPPER CLASSES</div>
+
+    <pre><code>class BoxingUnboxingCasting {
+    public static void main(String[] args) {
+        int primitive = 10;
+        Integer boxed = primitive;  // Auto-boxing
+        int unboxed = boxed;  // Auto-unboxing
+        
+        double widened = primitive;  // Widening
+        int narrowed = (int) widened;  // Narrowing
+        
+        Integer wrapperInt = Integer.valueOf(25);
+        Double wrapperDouble = Double.valueOf(12.5);
+        Character wrapperChar = Character.valueOf('A');
+        
+        System.out.println("Boxed Integer = " + boxed);
+        System.out.println("Unboxed Integer = " + unboxed);
+        System.out.println("Widening (int to double) = " + widened);
+        System.out.println("Narrowing (double to int) = " + narrowed);
+        System.out.println("Wrapper Integer = " + wrapperInt);
+        System.out.println("Wrapper Double = " + wrapperDouble);
+        System.out.println("Wrapper Character = " + wrapperChar);
+    }
+}</code></pre>
+
+    <div class="divider"></div>
+    <div class="section-header">STRING AND ARRAY MANIPULATION</div>
+
+    <pre><code>import java.util.*;
+class StringArrayManipulation {
+    public static void main(String[] args) {
+        String str = "Java Programming";
+        System.out.println(str.toUpperCase());
+        System.out.println(str.substring(5, 16));
+        System.out.println(str.replace("Java", "C"));
+        
+        int arr[] = {5, 3, 9, 1};
+        Arrays.sort(arr);
+        System.out.println(Arrays.toString(arr));
+        System.out.println("Length: " + arr.length);
+    }
+}</code></pre>
+
+    <div class="divider"></div>
+    <div class="section-header">METHOD OVERRIDING AND INHERITANCE</div>
+
+    <pre><code>class Animal {
+    void sound() {
+        System.out.println("Animal makes a sound");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    void sound() {
+        System.out.println("Dog barks");
+    }
+}
+
+class Test {
+    public static void main(String[] args) {
+        Animal obj = new Dog();
+        obj.sound();
+    }
+}</code></pre>
+
+    <div class="divider"></div>
+    <div class="section-header">FREQUENTLY ASKED QUESTIONS</div>
+
+    <div class="faq-section">
+        <div class="faq-question">1. What is the reason Java doesn't support multiple inheritance for classes?</div>
+        <div class="faq-answer">
+            Java avoids multiple inheritance for classes to prevent the diamond problem and ambiguity issues. When a class inherits from multiple parent classes that have methods with the same signature, it becomes unclear which method should be invoked, leading to complexity and potential conflicts in the codebase.
+        </div>
+
+        <div class="faq-question">2. How does Java handle parameter passing for objects?</div>
+        <div class="faq-answer">
+            Java uses pass-by-value for all parameters, including object references. When you pass an object to a method, a copy of the reference is passed. This means modifications to the object's internal state will affect the original object since both references point to the same memory location. However, reassigning the reference itself within the method won't change the original reference in the calling scope.
+        </div>
+
+        <div class="faq-question">3. What's the rationale behind Java's exclusion of explicit pointers?</div>
+        <div class="faq-answer">
+            Java eliminates explicit pointer usage to enhance memory safety and security. By abstracting memory management through object references and automatic garbage collection, Java prevents common pointer-related errors such as memory leaks, dangling pointers, and unauthorized memory access. This design promotes a more secure and robust programming environment.
+        </div>
+
+        <div class="faq-question">4. How are arrays passed to methods in Java?</div>
+        <div class="faq-answer">
+            Java passes arrays using pass-by-value semantics, where the value is the reference to the array object. A copy of the array reference is passed to the method, allowing modifications to array elements to affect the original array since both references point to the same memory location. However, if you reassign the reference to a new array within the method, the original array in the calling context remains unchanged.
+        </div>
+
+        <div class="faq-question">5. What happens when objects are passed to methods in Java?</div>
+        <div class="faq-answer">
+            Java employs pass-by-value for objects, where the value passed is the object's reference. A copy of this reference is sent to the method, meaning any changes to the object's properties through the copied reference will be reflected in the original object because both references point to the same instance in memory. However, reassigning the reference variable inside the method doesn't affect the original reference outside the method.
+        </div>
+    </div>
+</body>
+</html>
